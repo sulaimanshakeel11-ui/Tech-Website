@@ -251,6 +251,7 @@ i[data-lucide] {
 
 .hero-copy {
   max-width: 720px;
+  animation: heroTextIn 760ms ease-out both;
 }
 
 .pill,
@@ -327,6 +328,7 @@ h3 {
 .hero-visual {
   position: relative;
   min-height: 520px;
+  animation: heroVisualIn 900ms ease-out 160ms both;
 }
 
 .visual-frame {
@@ -463,6 +465,7 @@ h3 {
   backdrop-filter: blur(16px);
   font-size: 0.9rem;
   font-weight: 800;
+  animation: floatCard 4.8s ease-in-out infinite;
 }
 
 .card-top {
@@ -473,11 +476,60 @@ h3 {
 .card-mid {
   left: -16px;
   top: 238px;
+  animation-delay: 700ms;
 }
 
 .card-low {
   right: 18px;
   bottom: 28px;
+  animation-delay: 1200ms;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 680ms ease,
+    transform 680ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes heroTextIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroVisualIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 .section {
@@ -948,5 +1000,21 @@ textarea:focus {
   .service-card,
   .value-card {
     padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }
